@@ -1,14 +1,42 @@
 package main;
-
 import java.util.Scanner;
-
 import logica.Gato;
 import logica.Perro;
 import logica.RazaPerro;
 
 public class App {
-    public static void main(String[] args) throws Exception {
+
+    //Menu principal
+    public static void MenuPrincipal() {
         Scanner sc= new Scanner(System.in);
+        byte opc=0;
+        do {          
+            System.out.println("\n---------MENU--------\n"
+                               +"1. Insertar mascota\n"
+                               +"2. Actualizar mascota\n"
+                               +"3. Eliminar mascota\n"
+                               +"4. Buscar mascota por nombre\n"
+                               +"5. Listar todas las mascotas\n"
+                               +"6. Salir\n"
+                               +"Ingrese una opcion: ");
+            opc=sc.nextByte();
+            switch(opc){
+                case 1:
+                break;
+                case 2: 
+                break;
+                case 3: 
+                break;
+                case 4: 
+                break;
+                case 5: 
+                break;
+                default: break;
+            } 
+        } while (opc!=6);  
+    }
+    public static void main(String[] args) throws Exception {
+        
 
         // Prueba con objetos Perro
         System.out.println("\nPruebas obj Perro");
@@ -48,39 +76,8 @@ public class App {
         System.out.println(garf.tributo());
         System.out.println(pancho.saludar()); 
 
-        //Menu principal
-        int opc=0;
-        do {          
-       
-            System.out.println("\n---------MENU--------\n"
-                               +"1. Insertar mascota\n"
-                               +"2. Actualizar mascota\n"
-                               +"3. Eliminar mascota\n"
-                               +"4. Buscar mascota por nombre\n"
-                               +"5. Listar todas las mascotas\n"
-                               +"6. Salir\n"
-                               +"Ingrese una opcion: ");
-            opc=sc.nextByte();
-            switch(opc){
-                case 1:
-                break;
-                case 2: 
-                break;
-                case 3: 
-                break;
-                case 4: 
-                break;
-                case 5: 
-                break;
-                
-                
-            }
-            
-        } while (opc!=6);
+        //Metodo menu
+        App.MenuPrincipal(); 
 
-
-
-        
-
-    }
+    } 
 }
