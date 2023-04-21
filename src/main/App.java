@@ -34,7 +34,7 @@ public class App {
                 break;
                 case 4: 
                 break;
-                case 5: 
+                case 5: listarMascotas();
                 break;
                 default: break;
             } 
@@ -81,28 +81,12 @@ public class App {
         sc.nextLine(); // limpio entrada
         System.out.println("Ingrese el pais de origen del perro: ");
         String paisOrigenP = sc.nextLine();
-        System.out.println("Todo piola");
 
+        //Creo el objeto Perro y lo agrego a la lista de mascotas
         Perro nuevoPerro = new Perro(nombrePerro, raza, vacunasPerro, precioPerro, paisOrigenP);
         mascotas.add(nuevoPerro);
 
-         // * Temporal: Mostrar lista para verificar el funcionamiento del metodo
-        for (int i = 0; i < mascotas.size(); i++) {
-            if (mascotas.get(i) instanceof Perro) {
-                Perro perro = (Perro) mascotas.get(i);
-                System.out.println(perro.toString());
-                System.out.println("Nombre: " + perro.getNombre());
-                System.out.println("Raza: "+ perro.getRaza());
-                System.out.println("Vacunas: " + perro.getVacunas());
-                System.out.println("Precio: " + perro.getPrecio());
-                System.out.println("Pais de origen: " + perro.getPaisOrigen());
-                System.out.println("Mostrar id: " + perro.getId());
-                perro.mostrarInformacion();
-                
-
-            }
-        }
-        
+        System.out.println("\nMascota agregada con exito\n");
     }
 
     /*Asignar la raza de un perro requiere una comprobacion adicional para verificar que lo ingresado sea igual a
@@ -147,35 +131,41 @@ public class App {
         System.out.println("Ingrese el pais de origen del gato: ");
         String paisOrigenG = sc.nextLine();
       
+        //Creo el objeto Gato y lo agrego a la lista de mascotas
         Gato nuevoGato = new Gato(nombreGato, vacunasGato, precioGato, paisOrigenG );
         mascotas.add(nuevoGato);
 
-        // * Temporal: Mostrar lista para verificar el funcionamiento del metodo
-        for (int i = 0; i < mascotas.size(); i++) {
-            if (mascotas.get(i) instanceof Gato) {
-                Gato gato1 = (Gato) mascotas.get(i);
-                System.out.println(gato1.toString());
-                System.out.println("Nombre: " + gato1.getNombre());
-                System.out.println("Vacunas: " + gato1.getVacunas());
-                System.out.println("Precio : " + gato1.getPrecio());
-                System.out.println("Pais de origen : " + gato1.getPaisOrigen());
-                System.out.println("Mostrar id: " + gato1.getId());
-                gato1.mostrarInformacion();
-                
+        System.out.println("\nMascota agregada con exito\n");
+    }
 
-            }
+    /* Listo todas las mascotas y sus datos correspondientes. La funcion recorre toda la lista de mascotas y por cada mascota
+     llama el metodo mostraInformacion() el cual tiene un formato predefinido para mostrar todos los datos del objeto.
+     */
+    public static void listarMascotas(){
+        System.out.println("\n--------Lista de todas las mascotas--------");
+        for (Mascota mascota : mascotas) {
+            System.out.println("--------------------");
+            mascota.mostrarInformacion();
         }
     }
 
     public static void main(String[] args) throws Exception {
 
+        //Agregando mascotas para tener datos de antemano
+        Perro kaiser = new Perro("Kaiser", RazaPerro.Pastor, (byte)3, 1_000_000d, "Alemania");
+        mascotas.add(kaiser);
+        Gato pancho = new Gato("Pancho",(byte)2, 543_000d, "Colombia");
+        mascotas.add(pancho);
+        Perro baki = new Perro("Baki", RazaPerro.Labrador, (byte)0, 985_900d, "Francia");
+        mascotas.add(baki);
+        Perro alfred = new Perro("Alfred", RazaPerro.Tacita, (byte)1, 655_000d, "USA");
+        mascotas.add(alfred);
+        Gato mono = new Gato("Mono", (byte)1, 450_000d, "Sudan");
+        mascotas.add(mono);
+
         MenuPrincipal();
         
         
-
-
-        
-
         // Prueba con objetos Perro
         /*System.out.println("\nPruebas obj Perro");
         Perro alfred = new Perro();
@@ -213,9 +203,7 @@ public class App {
         System.out.println(gato1.apodo());
         System.out.println(garf.tributo());
         System.out.println(pancho.saludar()); 
-
-        //Metodo menu
-        App.MenuPrincipal(); */
+         */
 
     } 
 }

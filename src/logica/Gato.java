@@ -61,9 +61,13 @@ public class Gato extends Mascota implements MejorAmigo {
 
     @Override
     public void mostrarInformacion() {
-        // TODO: Modificar formato de informacion
-        System.out.printf("Gato: Nombre: %s, vacunas: %d, precio: %.2f, paisOrigen: %s, ID: %d%n",
-         getNombre(), super.getVacunas(), super.getPrecio(), super.getPaisOrigen(), super.getId());
+        System.out.printf("ID: %d%n" +
+                            "Tipo: Gato%n" + 
+                            "Nombre: %s%n" +  
+                            "Vacunas: %d%n" + 
+                            "Precio: %.2f%n" + 
+                            "paisOrigen: %s%n",
+                            super.getId(), getNombre(), super.getVacunas(), super.getPrecio(), super.getPaisOrigen());
     }
     
 }

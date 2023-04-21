@@ -84,9 +84,14 @@ public class Perro extends Mascota implements MejorAmigo {
 
     @Override
     public void mostrarInformacion() {
-        // TODO: Modificar formato de informacion
-        System.out.printf("Perro: Nombre: %s, raza: %s, vacunas: %d, precio: %.2f, paisOrigen: %s, ID: %d%n",
-        getNombre(), raza, super.getVacunas(), super.getPrecio(), super.getPaisOrigen(), super.getId());
+        System.out.printf("ID: %d%n" +
+                            "Tipo: Perro%n" + 
+                            "Nombre: %s%n" +  
+                            "Raza: %s%n" + 
+                            "Vacunas: %d%n" + 
+                            "Precio: %.2f%n" + 
+                            "paisOrigen: %s%n",
+                            super.getId(), getNombre(), getRaza(), super.getVacunas(), super.getPrecio(), super.getPaisOrigen());
     }
     
 
