@@ -1,5 +1,6 @@
 package main;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import logica.Gato;
 import logica.Mascota;
@@ -41,16 +42,16 @@ public class App {
         sc.close();
     }
 
-    
-    static Scanner scanner = new Scanner(System.in);
-
-    // funcion para insertar las mascotas
+    /* Menú que permite seleccionar alguna de las mascotas y posteriormente insertarla en la lista de Mascotas */
     public static void insertarMascota() {
-        System.out.println("Seleccione el tipo de mascota a agregar:");
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\n---------Agregando Mascota--------\n");
+        System.out.println("Que tipo de mascota desea agregar?");
         System.out.println("1. Perro");
         System.out.println("2. Gato");
-        int opcion = scanner.nextInt();
-        scanner.nextLine(); // Limpiar el buffer del scanner
+        System.out.print("Ingrese una opcion: ");
+        int opcion = sc.nextInt();
+        sc.nextLine(); // Limpiar el buffer del scanner
         switch(opcion) {
             case 1:
                 agregarPerro();
@@ -64,41 +65,92 @@ public class App {
         
     }
 
-    // funcion para agregar un perro, pido los atributos los atributos del gato y creo un objeto gato con los atributos
-    // TODO falta agregar el atributo RazaPerro
+    /* funcion que permite agregar un objeto tipo Perro. Pide los datos necesarios, los cuales son almacenados en
+    variables, las cuales posteriormente se usan como argumentos para crear un objeto de tipo Perro, el cual es
+    almacenado en la lista de mascotas */ 
     public static void agregarPerro(){
+        Scanner sc = new Scanner(System.in);
         System.out.print("Ingrese el nombre del perro: ");
-        String nombrePerro = scanner.nextLine();
-        System.out.println("Ingrese la raza del perro");
-        //RazaPerro raza = scanner.();
+        String nombrePerro = sc.nextLine();
+        // Menu para ingresar Raza
+        RazaPerro raza = asignarRaza();
         System.out.print("Ingrese las vacunas del perro: ");
-        byte vacunasPerro = scanner.nextByte();
+        byte vacunasPerro = sc.nextByte();
         System.out.println("Ingrese el precio del perro: ");
-        double precioPerro = scanner.nextDouble();
+        double precioPerro = sc.nextDouble();
+        sc.nextLine(); // limpio entrada
         System.out.println("Ingrese el pais de origen del perro: ");
-        String paisOrigenP = scanner.nextLine();
+        String paisOrigenP = sc.nextLine();
+        System.out.println("Todo piola");
 
-        scanner.nextLine(); // Limpiar el buffer del scanner
-        //Perro nuevoPerro = new Perro(nombrePerro, raza, edadPerro, precioPerro, paisOrigen );
-        //mascotas.add(nuevoPerro);
+        Perro nuevoPerro = new Perro(nombrePerro, raza, vacunasPerro, precioPerro, paisOrigenP);
+        mascotas.add(nuevoPerro);
+
+         // * Temporal: Mostrar lista para verificar el funcionamiento del metodo
+        for (int i = 0; i < mascotas.size(); i++) {
+            if (mascotas.get(i) instanceof Perro) {
+                Perro perro = (Perro) mascotas.get(i);
+                System.out.println(perro.toString());
+                System.out.println("Nombre: " + perro.getNombre());
+                System.out.println("Raza: "+ perro.getRaza());
+                System.out.println("Vacunas: " + perro.getVacunas());
+                System.out.println("Precio: " + perro.getPrecio());
+                System.out.println("Pais de origen: " + perro.getPaisOrigen());
+                System.out.println("Mostrar id: " + perro.getId());
+                perro.mostrarInformacion();
+                
+
+            }
+        }
+        
     }
 
-    // funcion para agregar un gato, pido los atributos los atributos del gato y creo un objeto gato con los atributos
+    /*Asignar la raza de un perro requiere una comprobacion adicional para verificar que lo ingresado sea igual a
+        uno de los valores del Enum de Razas. La funcion crea una lista de las razas transformandolas a Strings,
+        imprime estas en pantalla, posteriormente pide al usuario el ingreso del nombre de alguna de estas razas
+        y verifica si esa raza se encuentra en la lista de strings. Cuando el valor se encuentre en la lista
+        se convierte ese valor en su correspondiente en el Enum de razas y se retorna esta raza */
+    private static RazaPerro asignarRaza() {
+        System.out.println("\n-- Ingresando raza del perro --\nRazas:\n");
+        RazaPerro razaSeleccionada = RazaPerro.NoRegistrado;
+    
+        //Crear una lista de razas, usando el enum, esta lista sera String
+        List<String> razasList = new ArrayList<>();
+        for (RazaPerro raza : RazaPerro.values()) {
+            System.out.printf("--> %s\n", raza); //  Muestro las razas
+            razasList.add(raza.name()); // añado la raza a la lista de razas
+        }
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Ingrese el nombre de una de las razas disponibles: ");
+        //Comprobacion
+        String seleccion = sc.nextLine();
+        while (!razasList.contains(seleccion)){ // si el lo que escribo no se encuenta dentro de la lista entonces se ejecuta
+            System.out.printf("\nError, la raza que ha ingresado %s no existe. Ingrese una de las establecidas.\n"+
+            "Ingrese el nombre de una de las razas disponibles: ", seleccion);
+            seleccion = sc.nextLine();
+        }
+        razaSeleccionada = RazaPerro.valueOf(seleccion);      
+        return razaSeleccionada;
+    }
+
+    /*Funcion que permite agregar un Gato, cuenta con el mismo funcionamiento de la funcion para agregar Perro */
     public static void agregarGato(){
+        Scanner sc = new Scanner(System.in);
         System.out.print("Ingrese el nombre del gato: ");
-        String nombreGato = scanner.nextLine();
+        String nombreGato = sc.nextLine();
         System.out.print("Ingrese las vacunas del gato: ");
-        byte vacunasGato= scanner.nextByte();
+        byte vacunasGato= sc.nextByte();
         System.out.println("Ingrese el precio del gato: ");
-        double precioGato = scanner.nextDouble();
-        scanner.nextLine();
+        double precioGato = sc.nextDouble();
+        sc.nextLine(); // limpio entrada
         System.out.println("Ingrese el pais de origen del gato: ");
-        String paisOrigenG = scanner.nextLine();
+        String paisOrigenG = sc.nextLine();
       
         Gato nuevoGato = new Gato(nombreGato, vacunasGato, precioGato, paisOrigenG );
         mascotas.add(nuevoGato);
 
-        // lista las mascotas agregradas a modo de comprobar el funcionamiento del metodo insertarMascotas
+        // * Temporal: Mostrar lista para verificar el funcionamiento del metodo
         for (int i = 0; i < mascotas.size(); i++) {
             if (mascotas.get(i) instanceof Gato) {
                 Gato gato1 = (Gato) mascotas.get(i);
@@ -114,10 +166,6 @@ public class App {
             }
         }
     }
-
-
-
-
 
     public static void main(String[] args) throws Exception {
 
