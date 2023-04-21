@@ -34,6 +34,7 @@ public class App {
                 default: break;
             } 
         } while (opc!=6);  
+        sc.close();
     }
     public static void main(String[] args) throws Exception {
         

@@ -6,9 +6,13 @@ public abstract class Mascota {
     public static final String PAIS_POR_DEFECTO = "NN";
 
     // Atribuos
+    private int id;
     private byte vacunas;
     private double precio;
     private String paisOrigen;
+
+    //Contador para el id
+    private static int contador = 1;
 
     // Constructores 
     // 3 argumentos
@@ -16,6 +20,7 @@ public abstract class Mascota {
         this.vacunas = vacunas;
         this.precio = precio;
         this.paisOrigen = paisOrigen;
+        this.id = contador++; // agrego el valor del id y lo aumento en 1
     }
     // 2 argumentos
     public Mascota(byte vacunas, double precio) {
@@ -52,7 +57,12 @@ public abstract class Mascota {
         this.paisOrigen = paisOrigen;
     }
 
-
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
     // Metodos
     public abstract void mostrarInformacion();
 
