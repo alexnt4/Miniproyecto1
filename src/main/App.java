@@ -43,7 +43,7 @@ public class App {
             switch(opc){
                 case 1: limpiarConsola(); insertarMascota();
                 break;
-                case 2: limpiarConsola();
+                case 2: limpiarConsola(); actualizarMascota();
                 break;
                 case 3: limpiarConsola(); eliminarMascota();
                 break;
@@ -251,6 +251,99 @@ public class App {
         System.out.printf("\nLa mascota %s se ha agregado con exito\n", nuevoGato.getNombre());
         esperarEnter();
         limpiarConsola();
+    }
+
+    /* Funcion que permite actualziar la informacion de una mascota existente. Verificamos si la mascota existe y de que tipo es
+        posteriormente pedimos los datos nuevos, haciendo uso de variables, y luego usamos los setters de la clase para modificar
+        los atributos anteriores por los nuevos.
+     */
+    public static void actualizarMascota(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\n--------Actualizar Mascota--------");
+        System.out.print("Ingrese el nombre de la mascota que desea actualizar: ");
+        String nombreMascota = sc.nextLine();
+        boolean mascotaExiste = false;
+        limpiarConsola();
+        for (Mascota mascota : mascotas) {
+            if (mascota instanceof Perro) { 
+                Perro perro = (Perro) mascota; 
+                if (perro.getNombre().equals(nombreMascota)) {
+
+                    //Proceso de actualizacion
+                    System.out.println("--Mascota seleccionada " + nombreMascota + "--");
+                    mascota.mostrarInformacion();
+                    System.out.print("\nIngrese el nuevo nombre del perro: ");
+                    String nombre = sc.nextLine();
+
+                    //actualizacion de las vacunas
+                    ArrayList<String> vacunas = new ArrayList<String>();
+                    byte opcVacunas = 0;
+                    System.out.print("Desea agregar vacunas a la mascota\n" + 
+                                        "1. Si\n"+
+                                        "2. No\n" +
+                                        "Ingrese el numero de la opcion que desea: ");
+                    opcVacunas = sc.nextByte();
+                    if(opcVacunas == 1){
+                        vacunas = menuIngresarVacunas();
+                    }
+
+                    System.out.print("Ingrese el nuevo precio del perro: ");
+                    double precio = sc.nextDouble();
+                    sc.nextLine();
+                    System.out.print("Ingrese el pais de origen del perro: ");
+                    String paisOrigen = sc.nextLine();
+                    // Agrego todo a perro con los setters
+                    perro.setNombre(nombre);
+                    perro.setVacunas(vacunas);
+                    perro.setPrecio(precio);
+                    perro.setPaisOrigen(paisOrigen);
+                    limpiarConsola();
+                    System.out.println("La mascota se ha actualizaddo con exito.");
+                    esperarEnter();
+                    mascotaExiste = true;
+                    break;
+                }
+            }else if(mascota instanceof Gato){
+                Gato gato = (Gato) mascota; // Hace un cast de la mascota a un objeto de tipo Gato
+                if (gato.getNombre().equals(nombreMascota)) {
+                    System.out.println("--Mascota seleccionada " + nombreMascota + "--");
+                    mascota.mostrarInformacion();
+                    System.out.print("\nIngrese el nuevo nombre del gato: ");
+                    String nombre = sc.nextLine();
+                      //actualizacion de las vacunas
+                      ArrayList<String> vacunas = new ArrayList<String>();
+                      byte opcVacunas = 0;
+                      System.out.print("Desea agregar vacunas a la mascota\n" + 
+                                          "1. Si\n"+
+                                          "2. No\n" +
+                                          "Ingrese el numero de la opcion que desea: ");
+                      opcVacunas = sc.nextByte();
+                      if(opcVacunas == 1){
+                          vacunas = menuIngresarVacunas();
+                      }
+
+                    System.out.print("Ingrese el nuevo precio del gato: ");
+                    double precio = sc.nextDouble();
+                    sc.nextLine();
+                    System.out.print("Ingrese el pais de origen del gato: ");
+                    String paisOrigen = sc.nextLine();
+                    // Agrego todo a perro con los setters
+                    gato.setNombre(nombre);
+                    gato.setVacunas(vacunas);
+                    gato.setPrecio(precio);
+                    gato.setPaisOrigen(paisOrigen);
+                    limpiarConsola();
+                    System.out.println("La mascota se ha actualizaddo con exito.");
+                    esperarEnter();
+                    mascotaExiste = true;
+                    break;
+                }
+            }           
+        }         
+        if (!mascotaExiste){
+            System.out.println("La mascota " + nombreMascota + " no existe.");
+            esperarEnter();
+        }  
     }
 
     /* Listo todas las mascotas y sus datos correspondientes. La funcion recorre toda la lista de mascotas y por cada mascota
