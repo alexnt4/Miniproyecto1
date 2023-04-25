@@ -37,27 +37,62 @@ public class App {
                                +"3. Eliminar mascota\n"
                                +"4. Buscar mascota por nombre\n"
                                +"5. Listar todas las mascotas\n"
-                               +"0. Salir\n"
+                               +"0. Salir del menu principal\n"
                                +"Ingrese una opcion: ");
             opc=sc.nextByte();
             switch(opc){
                 case 1: limpiarConsola(); insertarMascota();
                 break;
-                case 2:
+                case 2: limpiarConsola();
                 break;
-                case 3: 
+                case 3: limpiarConsola();
                 break;
                 case 4: limpiarConsola(); buscarMascotaPorNombre();
                 break;
                 case 5: limpiarConsola(); listarMascotas();
+                break;
+                case 0: limpiarConsola(); 
+                break;
+                default: System.out.println("\nError, seleccione una opcion correcta."); esperarEnter();
+            } 
+        } while (opc!=0);  
+       
+        SubMenu();
+    }
+
+    //Sub menu para gestionar algunos datos estadisticos de las mascotas 
+    public static void SubMenu() {
+        limpiarConsola();
+        Scanner sc= new Scanner(System.in);
+        byte opc=0;
+        do {
+            limpiarConsola();          
+            System.out.print("\n---------SUB MENU--------\n"
+                               +"1. Que mascota tiene la vacuna malota\n"
+                               +"2. Cual es el top 5 de las mascotas mas costosas\n"
+                               +"3. Que mascotas no tienen país de origen en latinoamérica\n"
+                               +"4. Regresar al menu principal\n"
+                               +"0. Salir del programa\n"
+                               +"Ingrese una opcion: ");
+            opc=sc.nextByte();
+            switch(opc){
+                case 1: limpiarConsola(); 
+                break;
+                case 2: limpiarConsola();
+                break;
+                case 3: limpiarConsola(); 
+                break;
+                case 4: limpiarConsola(); MenuPrincipal();
                 break;
                 case 0: limpiarConsola(); System.out.println("Gracias por usar el programa.");
                 break;
                 default: System.out.println("\nError, seleccione una opcion correcta."); esperarEnter();
             } 
         } while (opc!=0);  
-        sc.close();
+        
     }
+
+
 
     /* Menú que permite seleccionar alguna de las mascotas y posteriormente insertarla en la lista de Mascotas */
     public static void insertarMascota() {
