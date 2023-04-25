@@ -46,7 +46,7 @@ public class App {
                 break;
                 case 3: 
                 break;
-                case 4: 
+                case 4: limpiarConsola(); buscarMascotaPorNombre();
                 break;
                 case 5: limpiarConsola(); listarMascotas();
                 break;
@@ -181,6 +181,42 @@ public class App {
             mascota.mostrarInformacion();
         }
         esperarEnter();
+    }
+
+    /* Busco mascotas por su nombre e imprimo los datos de esta misma. La funcion recorre toda la lista de mascotas y comprueba uno por 
+        los nombres de las mascotas, si esta equivale al nombre digitado, imprime los datos de lo contrario dara un mensaja con que el nombre de la mascota 
+        no existe.
+     */
+    public static void buscarMascotaPorNombre(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\n--------Buscando mascota por nombre--------");
+        System.out.print("Ingrese el nombre de la mascota: ");
+        String nombreMascota = sc.nextLine();
+        boolean mascotaExiste = false;
+        limpiarConsola();
+        
+        for (Mascota mascota : mascotas) {
+            if (mascota instanceof Perro) { // Verifica que la mascota sea un perro
+                Perro perro = (Perro) mascota; // Hace un cast de la mascota a un objeto de tipo Perro
+                if (perro.getNombre().equals(nombreMascota)) {
+                    System.out.println("--Datos de la mascota " + nombreMascota + "--");
+                    mascota.mostrarInformacion();                    
+                    mascotaExiste = true;
+                    break;
+                }
+            }else if(mascota instanceof Gato){
+                Gato gato = (Gato) mascota; // Hace un cast de la mascota a un objeto de tipo Gato
+                if (gato.getNombre().equals(nombreMascota)) {
+                    System.out.println("--Datos de la mascota " + nombreMascota + "--");
+                    mascota.mostrarInformacion();
+                    mascotaExiste = true;
+                    break;   
+                }
+            }           
+        }         
+        if (!mascotaExiste){
+            System.out.println("La mascota " + nombreMascota + " no existe.");}  
+        esperarEnter();          
     }
 
 
