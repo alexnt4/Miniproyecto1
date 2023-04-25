@@ -45,7 +45,7 @@ public class App {
                 break;
                 case 2: limpiarConsola();
                 break;
-                case 3: limpiarConsola();
+                case 3: limpiarConsola(); eliminarMascota();
                 break;
                 case 4: limpiarConsola(); buscarMascotaPorNombre();
                 break;
@@ -264,6 +264,59 @@ public class App {
             mascota.mostrarInformacion();
         }
         esperarEnter();
+    }
+    public static void eliminarMascota(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\n--------Eliminar Mascota--------");
+        System.out.print("Ingrese el nombre de la mascota a eliminar: ");
+        String buscar = sc.nextLine();
+        boolean mascotaExiste = false;
+        limpiarConsola();
+
+        for (Mascota mascota : mascotas) {
+            if (mascota instanceof Perro) { // Verifica que la mascota sea un perro
+                Perro perro = (Perro) mascota; // Hace un cast de la mascota a un objeto de tipo Perro
+                if (perro.getNombre().equals(buscar)) {
+                    System.out.println("---Datos de la mascota " + buscar+ "---");
+                    mascota.mostrarInformacion();          
+                    mascotaExiste = true;
+                    if(mascotaExiste == true){
+                        System.out.println("\n¿Esta seguro de eliminar mascota "+buscar+"?\n"+
+                        "1 -> [Si]  2-> [No]");
+                        byte opcion = sc.nextByte(); //opcion para consultar si desea eliminar
+                        if(opcion == 1){
+                            mascotas.remove(perro); //elimina el objecto perro de la lista mascotas
+                            System.out.println("!Se ha eliminado mascota con exito!");
+                        }else{
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }else if(mascota instanceof Gato){
+                Gato gato = (Gato) mascota; // Hace un cast de la mascota a un objeto de tipo Gato
+                if (gato.getNombre().equals(buscar)) {
+                    System.out.println("---Datos de la mascota " + buscar + "---");
+                    mascota.mostrarInformacion();
+                    mascotaExiste = true;
+                    if(mascotaExiste == true){
+                        System.out.println("\n¿Esta seguro de eliminar mascota "+buscar+"?\n"+
+                        "1 -> [Si]  2-> [No]");
+                        byte opcion2 = sc.nextByte();  //opcion para consultar si desea eliminar
+                        if(opcion2 == 1){
+                            mascotas.remove(gato); //elimina el objecto gato de la lista mascotas
+                            System.out.println("!Se ha eliminado mascota con exito!");
+                        }else{
+                            break;
+                        }
+                    }
+                    break;   
+                }
+            }           
+        }         
+        if (!mascotaExiste){
+            System.out.println("La mascota " + buscar + " no existe.");}  
+        esperarEnter();          
     }
 
     /* Busco mascotas por su nombre e imprimo los datos de esta misma. La funcion recorre toda la lista de mascotas y comprueba uno por 
