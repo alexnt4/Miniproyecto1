@@ -9,7 +9,7 @@ import logica.Perro;
 import logica.RazaPerro;
 
 public class App {
-
+    //----------------------------Metodos de Consola--------------------------------------------------
     public static void limpiarConsola() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -24,7 +24,7 @@ public class App {
 
     static ArrayList<Mascota> mascotas = new ArrayList<Mascota>();
 
-    //Menu principal
+    //----------------------------Menus--------------------------------------------------
     public static void MenuPrincipal() {
         limpiarConsola();
         Scanner sc= new Scanner(System.in);
@@ -56,7 +56,7 @@ public class App {
                 default: System.out.println("\nError, seleccione una opcion correcta."); esperarEnter();
             } 
         } while (opc!=0);  
-       
+        limpiarConsola();
         SubMenu();
     }
 
@@ -80,7 +80,7 @@ public class App {
                 break;
                 case 2: limpiarConsola();
                 break;
-                case 3: limpiarConsola(); 
+                case 3: limpiarConsola(); MascotasConOrigenExtranjero();
                 break;
                 case 4: limpiarConsola(); MenuPrincipal();
                 break;
@@ -92,7 +92,7 @@ public class App {
         
     }
 
-
+//--------------------------------------Metodos del Menu Principal------------------------------------------------
 
     /* Menú que permite seleccionar alguna de las mascotas y posteriormente insertarla en la lista de Mascotas */
     public static void insertarMascota() {
@@ -353,7 +353,36 @@ public class App {
             System.out.println("La mascota " + nombreMascota + " no existe.");}  
         esperarEnter();          
     }
+    //--------------------------------------Metodos del Sub Menu------------------------------------------------
+    /* Metodo que imprime las mascotas que son extranjeras, no originarias de Latinoamerica*/
+    public static void MascotasConOrigenExtranjero() {
+        
+        byte contador = 0;
+        ArrayList<String> paisesLatinos = new ArrayList<>(); //Arraylist con los paises latinoamericanos
+        paisesLatinos.addAll(Arrays.asList("Argentina", "Bolivia", "Brasil", "Chile", "Colombia", "Costa Rica", "Cuba", "Ecuador", "El Salvador", "Guatemala", "Haiti", "Honduras", "Jamaica", "Mexico", "Nicaragua", "Panama", "Paraguay", "Peru", "Puerto Rico", "Republica Dominicana", "Uruguay", "Venezuela"));
+        System.out.println("\n--------Mascotas no originarias en latinoamerica--------");
+        for (Mascota mascota : mascotas) {
+            if (mascota instanceof Perro) { // Verifica que la mascota sea un perro
+                Perro perro = (Perro) mascota; // Hace un cast de la mascota a un objeto de tipo Perro
+                if (!paisesLatinos.contains(perro.getPaisOrigen())) {  // Verifica si el país de origen del perro no está en el ArrayList "paisesLatinos"
+                    mascota.mostrarInformacion();                 
+                    System.out.println("________________________________");
+                    contador++;
+                }
+            }else if(mascota instanceof Gato){
+                Gato gato = (Gato) mascota; // Hace un cast de la mascota a un objeto de tipo Gato
+                if (!paisesLatinos.contains(gato.getPaisOrigen())) {  // Verifica si el país de origen del gato no está en el ArrayList "paisesLatinos"
+                    mascota.mostrarInformacion();                 
+                    System.out.println("________________________________");
+                    contador++;
+                }
+            }    
+        } 
+        
+        System.out.print("\nTotal de mascotas extranjeras: "+contador);
 
+        esperarEnter();  
+    }
     public static void main(String[] args) throws Exception {
 
         //Agregando mascotas para tener datos de antemano
