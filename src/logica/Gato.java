@@ -7,30 +7,11 @@ public class Gato extends Mascota implements MejorAmigo {
     private String nombre;
 
     // Constructores
-    // 4 argumentos
-    public Gato(String nombre, byte vacunas, double precio, String paisOrigen){
-        super(vacunas, precio, paisOrigen);
-        this.nombre = nombre;
-    }
-
     // 3 argumentos
-    public Gato(String nombre, byte vacunas, double precio){
-        super(vacunas, precio);
+    public Gato(String nombre, double precio, String paisOrigen){
+        super(precio, paisOrigen);
         this.nombre = nombre;
     }
-
-    // 2 argumentos
-    public Gato(String nombre, byte vacunas){
-        super(vacunas);
-        this.nombre = nombre;
-    }
-
-    // sin argumentos
-    public Gato(){
-        super((byte)0, PRECIO_MASCOTA_POR_DEFECTO, PAIS_POR_DEFECTO);
-        this.nombre = NOMBRE_POR_DEFECTO;
-    }
-
 
     // Getters - setters
     public String getNombre() {
@@ -64,10 +45,11 @@ public class Gato extends Mascota implements MejorAmigo {
         System.out.printf("ID: %d%n" +
                             "Tipo: Gato%n" + 
                             "Nombre: %s%n" +  
-                            "Vacunas: %d%n" + 
+                            "Cantidad de vacunas: %d%n" + 
                             "Precio: %.2f%n" + 
                             "paisOrigen: %s%n",
-                            super.getId(), getNombre(), super.getVacunas(), super.getPrecio(), super.getPaisOrigen());
+                            super.getId(), getNombre(), getCantidadVacunas(), super.getPrecio(), super.getPaisOrigen());
+
     }
     
 }

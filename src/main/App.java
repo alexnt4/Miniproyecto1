@@ -1,5 +1,6 @@
 package main;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import logica.Gato;
@@ -99,18 +100,30 @@ public class App {
         String nombrePerro = sc.nextLine();
         // Menu para ingresar Raza
         RazaPerro raza = asignarRaza();
-        System.out.print("Ingrese las vacunas del perro: ");
-        byte vacunasPerro = sc.nextByte();
-        System.out.print("Ingrese el precio del perro: ");
+
+        // Asignacion de vacunas
+        ArrayList<String> vacunas = new ArrayList<String>();
+        byte opcVacunas = 0;
+        System.out.print("Desea agregar vacunas a la mascota\n" + 
+                            "1. Si\n"+
+                            "2. No\n" +
+                            "Ingrese el numero de la opcion que desea: ");
+        opcVacunas = sc.nextByte();
+        if(opcVacunas == 1){
+            vacunas = menuIngresarVacunas();
+        }
+
+        System.out.print("\nIngrese el precio del perro: ");
         double precioPerro = sc.nextDouble();
         sc.nextLine(); // limpio entrada
         System.out.print("Ingrese el pais de origen del perro: ");
         String paisOrigenP = sc.nextLine();
 
         //Creo el objeto Perro y lo agrego a la lista de mascotas
-        Perro nuevoPerro = new Perro(nombrePerro, raza, vacunasPerro, precioPerro, paisOrigenP);
+        Perro nuevoPerro = new Perro(nombrePerro, raza, precioPerro, paisOrigenP);
+        nuevoPerro.setVacunas(vacunas); // agrego el array de vacunas
         mascotas.add(nuevoPerro);
-
+        
         limpiarConsola();
         System.out.printf("\nLa mascota %s se ha agregado con exito\n", nuevoPerro.getNombre());
         esperarEnter();
@@ -132,7 +145,6 @@ public class App {
             System.out.printf("--> %s\n", raza); //  Muestro las razas
             razasList.add(raza.name()); // añado la raza a la lista de razas
         }
-
         Scanner sc = new Scanner(System.in);
         System.out.print("Ingrese el nombre de una de las razas disponibles: ");
         //Comprobacion
@@ -146,22 +158,58 @@ public class App {
         return razaSeleccionada;
     }
 
+    /*Asigna las vacunas a cada mascota. Creamos una array que posteriormente sera al que se agregaran vacunas y el cual sera 
+     * retornado, entramos en un do while el cual permite agregar mas de una vacuna preguntando al usuario si desea agregar más
+     * cada vacuna es agregada al arraylist, al finalizar se retorna un arrayList que será el atributo de la mascota.
+     */
+    public static ArrayList<String> menuIngresarVacunas(){
+        ArrayList<String> vacunas = new ArrayList<String>();
+        byte opc = 0; 
+        Scanner sc = new Scanner(System.in);
+        do{
+            String vacuna = "";
+            System.out.println("\n-- Agregando vacuna--");
+            System.out.print("Digite el nombre de la vacuna: ");
+            vacuna = sc.nextLine();
+            vacunas.add(vacuna);
+            System.out.print("\nDesea agregar otra vacuna a la mascota?\n" + 
+                                "1. Si\n"+
+                                "2. No\n" +
+                                "Ingrese el numero de la opcion que desea: ");
+            opc = sc.nextByte();
+            sc.nextLine();
+        }while(opc < 2 );
+        return vacunas;
+    }
+    
     /*Funcion que permite agregar un Gato, cuenta con el mismo funcionamiento de la funcion para agregar Perro */
     public static void agregarGato(){
         System.out.println("----Agregando Gato----");
         Scanner sc = new Scanner(System.in);
         System.out.print("Ingrese el nombre del gato: ");
         String nombreGato = sc.nextLine();
-        System.out.print("Ingrese las vacunas del gato: ");
-        byte vacunasGato= sc.nextByte();
-        System.out.print("Ingrese el precio del gato: ");
+
+        // Asignacion de vacunas
+        ArrayList<String> vacunas = new ArrayList<String>();
+        byte opcVacunas = 0;
+        System.out.print("Desea agregar vacunas a la mascota\n" + 
+                            "1. Si\n"+
+                            "2. No\n" +
+                            "Ingrese el numero de la opcion que desea: ");
+        opcVacunas = sc.nextByte();
+        if(opcVacunas == 1){
+            vacunas = menuIngresarVacunas();
+        }
+
+        System.out.print("\nIngrese el precio del gato: ");
         double precioGato = sc.nextDouble();
         sc.nextLine(); // limpio entrada
         System.out.print("Ingrese el pais de origen del gato: ");
         String paisOrigenG = sc.nextLine();
       
         //Creo el objeto Gato y lo agrego a la lista de mascotas
-        Gato nuevoGato = new Gato(nombreGato, vacunasGato, precioGato, paisOrigenG );
+        Gato nuevoGato = new Gato(nombreGato, precioGato, paisOrigenG );
+        nuevoGato.setVacunas(vacunas);
         mascotas.add(nuevoGato);
 
         limpiarConsola();
@@ -194,7 +242,6 @@ public class App {
         String nombreMascota = sc.nextLine();
         boolean mascotaExiste = false;
         limpiarConsola();
-        
         for (Mascota mascota : mascotas) {
             if (mascota instanceof Perro) { // Verifica que la mascota sea un perro
                 Perro perro = (Perro) mascota; // Hace un cast de la mascota a un objeto de tipo Perro
@@ -219,24 +266,42 @@ public class App {
         esperarEnter();          
     }
 
-
-
-
     public static void main(String[] args) throws Exception {
 
         //Agregando mascotas para tener datos de antemano
-        Perro kaiser = new Perro("Kaiser", RazaPerro.Pastor, (byte)3, 1_000_000d, "Alemania");
+        Perro kaiser = new Perro("Kaiser", RazaPerro.Pastor, 1_000_000d, "Alemania");
+        ArrayList<String> vacunasKaiser = new ArrayList<String>();
+        vacunasKaiser.addAll(Arrays.asList("malota", "buenota", "leptospira"));
+        kaiser.setVacunas(vacunasKaiser);
         mascotas.add(kaiser);
-        Gato pancho = new Gato("Pancho",(byte)2, 543_000d, "Colombia");
+
+        Gato pancho = new Gato("Pancho", 543_000d, "Colombia");
+        ArrayList<String> vacunasPancho = new ArrayList<String>();
+        vacunasPancho.addAll(Arrays.asList("fea", "malota", "burgdorferi", "cariñosa"));
+        pancho.setVacunas(vacunasPancho);
         mascotas.add(pancho);
-        Perro baki = new Perro("Baki", RazaPerro.Labrador, (byte)0, 985_900d, "Francia");
+
+        Perro baki = new Perro("Baki", RazaPerro.Labrador,985_900d, "Francia");
+        ArrayList<String> vacunasbaki = new ArrayList<String>();
+        vacunasbaki.addAll(Arrays.asList("buenota", "bronchiseptica", "burgdorferi"));
+        baki.setVacunas(vacunasbaki);
         mascotas.add(baki);
-        Perro alfred = new Perro("Alfred", RazaPerro.Tacita, (byte)1, 655_000d, "USA");
+
+
+        Perro alfred = new Perro("Alfred", RazaPerro.Tacita, 655_000d, "USA");
+        ArrayList<String> vacunasAlfred = new ArrayList<String>();
+        vacunasAlfred.addAll(Arrays.asList("buenota", "bronchiseptica", "burgdorferi", "jols", "tetanus"));
+        alfred.setVacunas(vacunasAlfred);
         mascotas.add(alfred);
-        Gato mono = new Gato("Mono", (byte)1, 450_000d, "Sudan");
+
+
+        Gato mono = new Gato("Mono", (byte)1, "Sudan");
+        ArrayList<String> vacunasMono = new ArrayList<String>();
+        vacunasMono.addAll(Arrays.asList());
+        mono.setVacunas(vacunasMono);
         mascotas.add(mono);
 
-        MenuPrincipal();
+        MenuPrincipal();    
         
     } 
 }

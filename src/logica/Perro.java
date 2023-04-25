@@ -13,37 +13,14 @@ public class Perro extends Mascota implements MejorAmigo {
     private ArrayList<Pulga> pulgas; //? Por definir implementacion
 
     //Constructores
-    // 5 argumentos
-    public Perro(String nombre, RazaPerro raza, byte vacunas, double precio, String paisOrigen){
-        super(vacunas, precio, paisOrigen);
-        this.nombre = nombre;
-        this.raza = raza;
-        pulgas = new ArrayList<Pulga>();
-
-    }
     // 4 argumentos
-    public Perro(String nombre, RazaPerro raza, byte vacunas, double precio){
-        super(vacunas, precio);
+    public Perro(String nombre, RazaPerro raza, double precio, String paisOrigen){
+        super(precio, paisOrigen);
         this.nombre = nombre;
         this.raza = raza;
         pulgas = new ArrayList<Pulga>();
-    }
-    // 3 argumentos
-    public Perro(String nombre, RazaPerro raza, byte vacunas){
-        super(vacunas);
-        this.nombre = nombre;
-        this.raza = raza;
-        pulgas = new ArrayList<Pulga>();
-    }
-    // sin argumentos
-    public Perro(){
-        super((byte)0, PRECIO_MASCOTA_POR_DEFECTO, PAIS_POR_DEFECTO);
-        this.nombre = NOMBRE_POR_DEFECTO;
-        this.raza = RAZA_DEFAULT;
-        pulgas = new ArrayList<Pulga>();
-    }
 
-
+    }
 
     // Getters - setters
     public String getNombre() {
@@ -88,10 +65,10 @@ public class Perro extends Mascota implements MejorAmigo {
                             "Tipo: Perro%n" + 
                             "Nombre: %s%n" +  
                             "Raza: %s%n" + 
-                            "Vacunas: %d%n" + 
+                            "Cantidad de vacunas: %d%n" + 
                             "Precio: %.2f%n" + 
                             "paisOrigen: %s%n",
-                            super.getId(), getNombre(), getRaza(), super.getVacunas(), super.getPrecio(), super.getPaisOrigen());
+                            super.getId(), getNombre(), getRaza(), getCantidadVacunas(), super.getPrecio(), super.getPaisOrigen());
     }
     
 
