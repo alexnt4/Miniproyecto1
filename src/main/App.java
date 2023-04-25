@@ -37,27 +37,62 @@ public class App {
                                +"3. Eliminar mascota\n"
                                +"4. Buscar mascota por nombre\n"
                                +"5. Listar todas las mascotas\n"
-                               +"0. Salir\n"
+                               +"0. Salir del menu principal\n"
                                +"Ingrese una opcion: ");
             opc=sc.nextByte();
             switch(opc){
                 case 1: limpiarConsola(); insertarMascota();
                 break;
-                case 2:
+                case 2: limpiarConsola();
                 break;
-                case 3: 
+                case 3: limpiarConsola(); eliminarMascota();
                 break;
                 case 4: limpiarConsola(); buscarMascotaPorNombre();
                 break;
                 case 5: limpiarConsola(); listarMascotas();
+                break;
+                case 0: limpiarConsola(); 
+                break;
+                default: System.out.println("\nError, seleccione una opcion correcta."); esperarEnter();
+            } 
+        } while (opc!=0);  
+       
+        SubMenu();
+    }
+
+    //Sub menu para gestionar algunos datos estadisticos de las mascotas 
+    public static void SubMenu() {
+        limpiarConsola();
+        Scanner sc= new Scanner(System.in);
+        byte opc=0;
+        do {
+            limpiarConsola();          
+            System.out.print("\n---------SUB MENU--------\n"
+                               +"1. Que mascota tiene la vacuna malota\n"
+                               +"2. Cual es el top 5 de las mascotas mas costosas\n"
+                               +"3. Que mascotas no tienen país de origen en latinoamérica\n"
+                               +"4. Regresar al menu principal\n"
+                               +"0. Salir del programa\n"
+                               +"Ingrese una opcion: ");
+            opc=sc.nextByte();
+            switch(opc){
+                case 1: limpiarConsola(); 
+                break;
+                case 2: limpiarConsola();
+                break;
+                case 3: limpiarConsola(); 
+                break;
+                case 4: limpiarConsola(); MenuPrincipal();
                 break;
                 case 0: limpiarConsola(); System.out.println("Gracias por usar el programa.");
                 break;
                 default: System.out.println("\nError, seleccione una opcion correcta."); esperarEnter();
             } 
         } while (opc!=0);  
-        sc.close();
+        
     }
+
+
 
     /* Menú que permite seleccionar alguna de las mascotas y posteriormente insertarla en la lista de Mascotas */
     public static void insertarMascota() {
@@ -229,6 +264,59 @@ public class App {
             mascota.mostrarInformacion();
         }
         esperarEnter();
+    }
+    public static void eliminarMascota(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\n--------Eliminar Mascota--------");
+        System.out.print("Ingrese el nombre de la mascota a eliminar: ");
+        String buscar = sc.nextLine();
+        boolean mascotaExiste = false;
+        limpiarConsola();
+
+        for (Mascota mascota : mascotas) {
+            if (mascota instanceof Perro) { // Verifica que la mascota sea un perro
+                Perro perro = (Perro) mascota; // Hace un cast de la mascota a un objeto de tipo Perro
+                if (perro.getNombre().equals(buscar)) {
+                    System.out.println("---Datos de la mascota " + buscar+ "---");
+                    mascota.mostrarInformacion();          
+                    mascotaExiste = true;
+                    if(mascotaExiste == true){
+                        System.out.println("\n¿Esta seguro de eliminar mascota "+buscar+"?\n"+
+                        "1 -> [Si]  2-> [No]");
+                        byte opcion = sc.nextByte(); //opcion para consultar si desea eliminar
+                        if(opcion == 1){
+                            mascotas.remove(perro); //elimina el objecto perro de la lista mascotas
+                            System.out.println("!Se ha eliminado mascota con exito!");
+                        }else{
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }else if(mascota instanceof Gato){
+                Gato gato = (Gato) mascota; // Hace un cast de la mascota a un objeto de tipo Gato
+                if (gato.getNombre().equals(buscar)) {
+                    System.out.println("---Datos de la mascota " + buscar + "---");
+                    mascota.mostrarInformacion();
+                    mascotaExiste = true;
+                    if(mascotaExiste == true){
+                        System.out.println("\n¿Esta seguro de eliminar mascota "+buscar+"?\n"+
+                        "1 -> [Si]  2-> [No]");
+                        byte opcion2 = sc.nextByte();  //opcion para consultar si desea eliminar
+                        if(opcion2 == 1){
+                            mascotas.remove(gato); //elimina el objecto gato de la lista mascotas
+                            System.out.println("!Se ha eliminado mascota con exito!");
+                        }else{
+                            break;
+                        }
+                    }
+                    break;   
+                }
+            }           
+        }         
+        if (!mascotaExiste){
+            System.out.println("La mascota " + buscar + " no existe.");}  
+        esperarEnter();          
     }
 
     /* Busco mascotas por su nombre e imprimo los datos de esta misma. La funcion recorre toda la lista de mascotas y comprueba uno por 
