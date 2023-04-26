@@ -76,7 +76,7 @@ public class App {
                                +"Ingrese una opcion: ");
             opc=sc.nextByte();
             switch(opc){
-                case 1: limpiarConsola(); 
+                case 1: limpiarConsola(); mascotasConVacunaMalota();
                 break;
                 case 2: limpiarConsola();
                 break;
@@ -446,7 +446,62 @@ public class App {
             System.out.println("La mascota " + nombreMascota + " no existe.");}  
         esperarEnter();          
     }
+
+
     //--------------------------------------Metodos del Sub Menu------------------------------------------------
+
+    /* Esta funcion permite comprobar que mascotas tienen la vacuna malota, la funcion recorre todas las macotas y en cada mascota 
+    recorre los nombres de la vacunas de esta misma, y comprueba una por mi si alguna de las vacunas de las mascota es la vacuna
+    malota, en caso de que asi sea se imprimira la informacion de la mascota, y en el caso de que no, se imprimira que no hay ninguna
+    mascota con la vacuna malota.
+     * 
+     */
+    public static void mascotasConVacunaMalota() {
+        System.out.println("\n--------Mascotas con la vacuna malota--------");
+        boolean alMenosUnaMascotaConVacunaMalota = false;
+        for (Mascota mascota : mascotas) {
+            if (mascota instanceof Perro) {
+                Perro perro = (Perro) mascota;
+                boolean tieneVacunaMalota = false;
+                for (String vacuna : perro.getVacunas()) { 
+                    if (vacuna.equalsIgnoreCase("malota")) {
+                        tieneVacunaMalota = true;
+                        
+                    }
+                }
+                if (tieneVacunaMalota) {
+                    System.out.println("La mascota con la vacuna 'malota' es: ");
+                    perro.mostrarInformacion();
+                    System.out.println();
+                    alMenosUnaMascotaConVacunaMalota = true;
+                    
+                }
+            }
+            else if(mascota instanceof Gato) {
+                Gato gato = (Gato) mascota;
+                boolean tieneVacunaMalota = false;
+                for (String vacuna : gato.getVacunas()) { 
+                    if (vacuna.equalsIgnoreCase("malota")) {
+                        tieneVacunaMalota = true;
+                        
+                    }
+                }
+                if (tieneVacunaMalota) {
+                    System.out.println("La mascota con la vacuna 'malota' es:");
+                    gato.mostrarInformacion();
+                    System.out.println();
+                    alMenosUnaMascotaConVacunaMalota = true;
+                    
+                }
+            }
+        if (!alMenosUnaMascotaConVacunaMalota) {
+            System.out.println("No hay ninguna mascota con la vacuna malota.");
+        }
+        }
+        esperarEnter();
+    }
+
+
     /* Metodo que imprime las mascotas que son extranjeras, no originarias de Latinoamerica*/
     public static void MascotasConOrigenExtranjero() {
         
