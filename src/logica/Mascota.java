@@ -2,7 +2,7 @@ package logica;
 
 import java.util.ArrayList;
 
-public abstract class Mascota {
+public abstract class Mascota implements Comparable<Mascota> {
     // valores por defecto
     public static final double PRECIO_MASCOTA_POR_DEFECTO = 0d;
     public static final String PAIS_POR_DEFECTO = "NN";
@@ -68,6 +68,15 @@ public abstract class Mascota {
     public ArrayList<String> getVacunas(){
         return vacunas;
     }
+    
+    /* Implemento la interface Comparable para realziar una comparacoin en los precios de las mascotas
+    lo que posteriormente me servira para hacer el top de mascotas por precios.
+     */
+    @Override
+    public int compareTo(Mascota otraMascota) {
+        return Double.compare(this.precio, otraMascota.getPrecio());
+    }
+
     // Metodos
     public abstract void mostrarInformacion();
 

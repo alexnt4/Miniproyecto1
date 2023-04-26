@@ -1,6 +1,7 @@
 package main;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import logica.Gato;
@@ -9,6 +10,10 @@ import logica.Perro;
 import logica.RazaPerro;
 
 public class App {
+
+    // Array que contiene las mascotas 
+    static ArrayList<Mascota> mascotas = new ArrayList<Mascota>();
+
     //----------------------------Metodos de Consola--------------------------------------------------
     public static void limpiarConsola() {
         System.out.print("\033[H\033[2J");
@@ -21,8 +26,6 @@ public class App {
         scanner.nextLine();
         // scanner.close();
     }
-
-    static ArrayList<Mascota> mascotas = new ArrayList<Mascota>();
 
     //----------------------------Menus--------------------------------------------------
     public static void MenuPrincipal() {
@@ -37,7 +40,8 @@ public class App {
                                +"3. Eliminar mascota\n"
                                +"4. Buscar mascota por nombre\n"
                                +"5. Listar todas las mascotas\n"
-                               +"0. Salir del menu principal\n"
+                               +"6. Ingresar al sub-menu\n"
+                               +"0. Salir\n"
                                +"Ingrese una opcion: ");
             opc=sc.nextByte();
             switch(opc){
@@ -51,13 +55,14 @@ public class App {
                 break;
                 case 5: limpiarConsola(); listarMascotas();
                 break;
-                case 0: limpiarConsola(); 
+                case 6: limpiarConsola(); SubMenu();
+                break;
+                case 0: limpiarConsola(); System.out.println("Gracias por usar el programa.");
                 break;
                 default: System.out.println("\nError, seleccione una opcion correcta."); esperarEnter();
+                break;
             } 
         } while (opc!=0);  
-        limpiarConsola();
-        SubMenu();
     }
 
     //Sub menu para gestionar algunos datos estadisticos de las mascotas 
@@ -71,20 +76,17 @@ public class App {
                                +"1. Que mascota tiene la vacuna malota\n"
                                +"2. Cual es el top 5 de las mascotas mas costosas\n"
                                +"3. Que mascotas no tienen país de origen en latinoamérica\n"
-                               +"4. Regresar al menu principal\n"
-                               +"0. Salir del programa\n"
+                               +"0. Volver al menu principal\n"
                                +"Ingrese una opcion: ");
             opc=sc.nextByte();
             switch(opc){
                 case 1: limpiarConsola(); mascotasConVacunaMalota();
                 break;
-                case 2: limpiarConsola();
+                case 2: limpiarConsola(); topMascotasCostosas();
                 break;
                 case 3: limpiarConsola(); MascotasConOrigenExtranjero();
                 break;
-                case 4: limpiarConsola(); MenuPrincipal();
-                break;
-                case 0: limpiarConsola(); System.out.println("Gracias por usar el programa.");
+                case 0: limpiarConsola(); 
                 break;
                 default: System.out.println("\nError, seleccione una opcion correcta."); esperarEnter();
             } 
@@ -172,7 +174,7 @@ public class App {
         se convierte ese valor en su correspondiente en el Enum de razas y se retorna esta raza */
     private static RazaPerro asignarRaza() {
         System.out.println("\n-- Ingresando raza del perro --\nRazas:");
-        RazaPerro razaSeleccionada = RazaPerro.NoRegistrado;
+        RazaPerro razaSeleccionada = RazaPerro.Otro;
     
         //Crear una lista de razas, usando el enum, esta lista sera String
         List<String> razasList = new ArrayList<>();
@@ -350,7 +352,6 @@ public class App {
      llama el metodo mostraInformacion() el cual tiene un formato predefinido para mostrar todos los datos del objeto.
      */
     public static void listarMascotas(){
-        
         System.out.println("\n-----Lista de todas las mascotas-----");
         for (Mascota mascota : mascotas) {
             System.out.println("--------------------");
@@ -447,8 +448,25 @@ public class App {
         esperarEnter();          
     }
 
-
     //--------------------------------------Metodos del Sub Menu------------------------------------------------
+    
+    /* Realiza un top 5 de las mascotas más costosas. Primero creo un array vacio que funcionara para alamacenar las mascotas
+     posteriormente le asigno las mascotas sin ordenar y despues lo ordeno haciendo uso de .sort de la clase Collections 
+     que se conecta con el compareto que se implemento en la clase Mascota, uso el reverseOrder para que se ordenen de mayor a menor
+     y por ultimo imprimo el array ordenado
+    */
+    public static void topMascotasCostosas(){
+        ArrayList<Mascota> mascotasOrdenadas = new ArrayList<>();
+        mascotasOrdenadas = mascotas;
+        System.out.println("--Top 5 Mascotas mas costosas--");
+        Collections.sort(mascotasOrdenadas, Collections.reverseOrder());
+        // Recorro el array ordenado y lo imprimo
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("\n--Top " + i + "--");
+            mascotasOrdenadas.get(i-1).mostrarInformacion();
+        }
+        esperarEnter();
+    }
 
     /* Esta funcion permite comprobar que mascotas tienen la vacuna malota, la funcion recorre todas las macotas y en cada mascota 
     recorre los nombres de la vacunas de esta misma, y comprueba una por mi si alguna de las vacunas de las mascota es la vacuna
@@ -560,7 +578,7 @@ public class App {
         mascotas.add(alfred);
 
 
-        Gato mono = new Gato("Mono", (byte)1, "Sudan");
+        Gato mono = new Gato("Mono",1_000_000_000d, "Sudan");
         ArrayList<String> vacunasMono = new ArrayList<String>();
         vacunasMono.addAll(Arrays.asList());
         mono.setVacunas(vacunasMono);
