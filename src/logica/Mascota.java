@@ -1,7 +1,6 @@
 package logica;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public abstract class Mascota {
     // valores por defecto
@@ -64,6 +63,10 @@ public abstract class Mascota {
     public int getCantidadVacunas(){
         int cantVacunas =  vacunas.size();
         return cantVacunas;
+    }
+
+    public ArrayList<String> getVacunas(){
+        return vacunas;
     }
     // Metodos
     public abstract void mostrarInformacion();
