@@ -174,7 +174,7 @@ public class App {
         se convierte ese valor en su correspondiente en el Enum de razas y se retorna esta raza */
     private static RazaPerro asignarRaza() {
         System.out.println("\n-- Ingresando raza del perro --\nRazas:");
-        RazaPerro razaSeleccionada = RazaPerro.NoRegistrado;
+        RazaPerro razaSeleccionada = RazaPerro.Otro;
     
         //Crear una lista de razas, usando el enum, esta lista sera String
         List<String> razasList = new ArrayList<>();

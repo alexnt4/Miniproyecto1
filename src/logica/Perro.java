@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Perro extends Mascota implements MejorAmigo {
     // valores por defecto
     public static final String NOMBRE_POR_DEFECTO = "NN";
-    public static final RazaPerro RAZA_DEFAULT = RazaPerro.NoRegistrado;
+    public static final RazaPerro RAZA_DEFAULT = RazaPerro.Otro;
 
     // Atributos
     private String nombre;
