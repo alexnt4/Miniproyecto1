@@ -1,17 +1,18 @@
-'TODO Modificaciones necesarias en caso de requerir cambios
+@startuml "DiagramaVeterinaria"
 
-@startuml prueba
 abstract Mascota{
-    -byte: vacunas
+    -int: id
+    -ArrayList<String>: vacunas
     -double: precio
     -string: paisOrigen
+    -static int: contador
     +void mostrarInformacion()
 }
 
 class Perro{
-    -String nombre
+    -String: nombre
     -RazaPerro: raza
-    -ArrayList<Puga> pulgas
+    -ArrayList<Pulga> pulgas
 }
 
 class Gato{
@@ -20,11 +21,17 @@ class Gato{
 }
 
 enum RazaPerro {
+    Bulldog
+    Golden
+    Caniche
+    Beagle
+    Rottweiler
+    Dachshund
     Pug
     Labrador
     Tacita
     Pastor
-    NoRegistrado
+    Otro
 }
 
 class Pulga{
@@ -41,7 +48,7 @@ interface MejorAmigo{
 
 Mascota <-up- Perro
 Mascota <-up- Gato
-Perro -left- RazaPerro
+Perro *-left- RazaPerro
 MejorAmigo <-down- Perro
 MejorAmigo <-down- Gato
 Perro *-right- Pulga
